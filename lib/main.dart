@@ -1,3 +1,4 @@
+import 'package:expensesapp/widgets/chart.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -87,18 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const SizedBox(
-              width: double.infinity,
-              child: Card(
-                color: Colors.black12,
-                elevation: 0,
-                child: Padding(
-                  padding: EdgeInsets.all(10),
-                  child: Text('Chart'),
-                ),
-              ),
-            ),
-            TransactionList(_userTransactions)
+            const Chart(),
+            TransactionList(_userTransactions),
           ],
         ),
       ),

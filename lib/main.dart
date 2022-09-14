@@ -40,14 +40,8 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     Transaction(
       id: '1',
-      title: 'New Shoes',
-      amount: 60.50,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: '2',
-      title: 'McDonald\'s',
-      amount: 15.99,
+      title: 'Example',
+      amount: 19.99,
       date: DateTime.now(),
     ),
   ];

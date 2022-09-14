@@ -11,37 +11,51 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
-      child: ListView.builder(
-        itemBuilder: (ctx, index) {
-          return ListTile(
-            leading: CircleAvatar(
-              child: Text(
-                transactions[index].amount.toStringAsFixed(2),
-                style: const TextStyle(fontSize: 10),
-              ),
+      child: transactions.isEmpty
+          ? Column(
+              children: <Widget>[
+                const Text('No transactions added yet!'),
+                Container(
+                  height: 200,
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Image.asset(
+                    'assets/images/waiting.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ],
+            )
+          : ListView.builder(
+              itemBuilder: (ctx, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    child: Text(
+                      transactions[index].amount.toStringAsFixed(2),
+                      style: const TextStyle(fontSize: 10),
+                    ),
+                  ),
+                  title: Text(
+                    transactions[index].title,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  subtitle: Text(
+                    DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
+                        .format(transactions[index].date),
+                    style: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 10,
+                    ),
+                  ),
+                  trailing: const Icon(Icons.delete),
+                  iconColor: Colors.grey,
+                  dense: true,
+                  onTap: () {},
+                );
+              },
+              itemCount: transactions.length,
             ),
-            title: Text(
-              transactions[index].title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            subtitle: Text(
-              DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                  .format(transactions[index].date),
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 10,
-              ),
-            ),
-            trailing: const Icon(Icons.delete),
-            iconColor: Colors.grey,
-            dense: true,
-            onTap: () {},
-          );
-        },
-        itemCount: transactions.length,
-      ),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 import 'models/transaction.dart';
+import 'widgets/nav_drawer.dart';
 import 'widgets/new_transaction.dart';
 import 'widgets/transaction_list.dart';
 
@@ -86,6 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
+      drawer: const NavDrawer(),
       body: SingleChildScrollView(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.start,

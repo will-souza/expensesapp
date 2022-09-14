@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.teal,
+        fontFamily: 'Quicksand',
       ),
       home: const MyHomePage(),
     );

@@ -16,7 +16,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+      ),
       home: const MyHomePage(),
     );
   }
@@ -91,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(
               width: double.infinity,
               child: Card(
-                color: Colors.black26,
+                color: Colors.black12,
                 elevation: 0,
                 child: Padding(
                   padding: EdgeInsets.all(10),

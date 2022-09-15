@@ -14,6 +14,8 @@ class _NewTransactionState extends State<NewTransaction> {
 
   final amountController = TextEditingController();
 
+  bool _isButtonDisabled = true;
+
   void submitData() {
     final String inputTitle = titleController.text;
     final double inputAmount = double.parse(amountController.text);
@@ -24,6 +26,14 @@ class _NewTransactionState extends State<NewTransaction> {
 
     widget.addTransaction(inputTitle, inputAmount);
     Navigator.of(context).pop();
+  }
+
+  void checkInputs() {
+    if (titleController.text.isNotEmpty && amountController.text.isNotEmpty) {
+      _isButtonDisabled = false;
+    } else {
+      _isButtonDisabled = true;
+    }
   }
 
   @override
@@ -39,16 +49,18 @@ class _NewTransactionState extends State<NewTransaction> {
                 TextField(
                   decoration: const InputDecoration(labelText: 'Title'),
                   controller: titleController,
-                  onSubmitted: (_) => submitData(),
+                  onSubmitted: (_) => _isButtonDisabled ? null : submitData(),
+                  onChanged: (_) => checkInputs(),
                 ),
                 TextField(
                   decoration: const InputDecoration(labelText: 'Amount'),
                   controller: amountController,
                   keyboardType: TextInputType.number,
-                  onSubmitted: (_) => submitData(),
+                  onSubmitted: (_) => _isButtonDisabled ? null : submitData(),
+                  onChanged: (_) => checkInputs(),
                 ),
                 TextButton(
-                  onPressed: submitData,
+                  onPressed: _isButtonDisabled ? null : submitData,
                   child: const Text('Add Transaction'),
                 )
               ],

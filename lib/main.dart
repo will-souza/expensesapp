@@ -47,6 +47,16 @@ class _MyHomePageState extends State<MyHomePage> {
     ),
   ];
 
+  List<Transaction> get _recentTransactions {
+    return _userTransactions.where((transaction) {
+      return transaction.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void _addTransaction(String title, double amount) {
     var uuid = const Uuid();
     final transaction = Transaction(
@@ -88,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            const Chart(),
+            Chart(_recentTransactions),
             TransactionList(_userTransactions),
           ],
         ),

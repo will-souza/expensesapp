@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTransaction;
@@ -10,26 +11,43 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
 
-  final amountController = TextEditingController();
+  final _amountController = TextEditingController();
 
   bool _isButtonDisabled = true;
+  DateTime _chosenDate = DateTime.now();
 
-  void submitData() {
-    final String inputTitle = titleController.text;
-    final double inputAmount = double.parse(amountController.text);
+  void _submitData() {
+    final String inputTitle = _titleController.text;
+    final double inputAmount = double.parse(_amountController.text);
 
     if (inputTitle.isEmpty || inputAmount <= 0) {
       return;
     }
 
-    widget.addTransaction(inputTitle, inputAmount);
+    widget.addTransaction(inputTitle, inputAmount, _chosenDate);
     Navigator.of(context).pop();
   }
 
-  void checkInputs() {
-    if (titleController.text.isNotEmpty && amountController.text.isNotEmpty) {
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _chosenDate = pickedDate;
+      });
+    });
+  }
+
+  void _checkInputs() {
+    if (_titleController.text.isNotEmpty && _amountController.text.isNotEmpty) {
       _isButtonDisabled = false;
     } else {
       _isButtonDisabled = true;
@@ -48,20 +66,35 @@ class _NewTransactionState extends State<NewTransaction> {
               children: <Widget>[
                 TextField(
                   decoration: const InputDecoration(labelText: 'Title'),
-                  controller: titleController,
-                  onSubmitted: (_) => _isButtonDisabled ? null : submitData(),
-                  onChanged: (_) => checkInputs(),
+                  controller: _titleController,
+                  onSubmitted: (_) {},
+                  onChanged: (_) => _checkInputs(),
                 ),
                 TextField(
                   decoration: const InputDecoration(labelText: 'Amount'),
-                  controller: amountController,
+                  controller: _amountController,
                   keyboardType: TextInputType.number,
-                  onSubmitted: (_) => _isButtonDisabled ? null : submitData(),
-                  onChanged: (_) => checkInputs(),
+                  onSubmitted: (_) {},
+                  onChanged: (_) => _checkInputs(),
                 ),
-                TextButton(
-                  onPressed: _isButtonDisabled ? null : submitData,
-                  child: const Text('Add Transaction'),
+                Row(
+                  children: <Widget>[
+                    Text(DateFormat.yMMMEd().format(_chosenDate).toString()),
+                    TextButton(
+                      onPressed: _presentDatePicker,
+                      child: const Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ],
+                ),
+                FilledButton(
+                  onPressed: _isButtonDisabled ? null : _submitData,
+                  child: const Text(
+                    'Add Transaction',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 )
               ],
             ),

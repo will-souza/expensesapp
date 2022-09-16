@@ -10,11 +10,11 @@ class NavDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
-              color: Colors.teal,
+              color: Theme.of(context).primaryColor,
             ),
-            child: Text(
+            child: const Text(
               'Options',
               style: TextStyle(color: Colors.white, fontSize: 25),
             ),

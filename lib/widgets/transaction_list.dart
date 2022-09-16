@@ -59,7 +59,7 @@ class TransactionList extends StatelessWidget {
                       ),
                     ),
                     trailing: const Icon(Icons.delete),
-                    iconColor: Colors.grey,
+                    iconColor: Colors.red[400],
                     dense: true,
                     onTap: () {},
                   ),

@@ -3,6 +3,8 @@ import 'package:expensesapp/widgets/chart_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+// no need for a stateful widget
+// ignore: must_be_immutable
 class Chart extends StatelessWidget {
   Chart(this.recentTransactions, {super.key});
   List<Transaction> recentTransactions = [];
@@ -25,7 +27,7 @@ class Chart extends StatelessWidget {
         'day': DateFormat.E().format(weekDay),
         'amount': totalAmount,
       };
-    });
+    }).reversed.toList();
   }
 
   double get totalSpending {

@@ -27,31 +27,42 @@ class TransactionList extends StatelessWidget {
             )
           : ListView.builder(
               itemBuilder: (ctx, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    child: Text(
-                      transactions[index].amount.toStringAsFixed(2),
-                      style: const TextStyle(fontSize: 10),
-                    ),
+                return Card(
+                  elevation: 1,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
                   ),
-                  title: Text(
-                    transactions[index].title,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
+                  margin: const EdgeInsets.all(5),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      child: FittedBox(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5),
+                          child: Text(
+                            transactions[index].amount.toStringAsFixed(2),
+                            style: const TextStyle(fontSize: 10),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  subtitle: Text(
-                    DateFormat(DateFormat.YEAR_ABBR_MONTH_DAY)
-                        .format(transactions[index].date),
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 10,
+                    title: Text(
+                      transactions[index].title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
+                    subtitle: Text(
+                      DateFormat.yMMMd().format(transactions[index].date),
+                      style: const TextStyle(
+                        color: Colors.grey,
+                        fontSize: 10,
+                      ),
+                    ),
+                    trailing: const Icon(Icons.delete),
+                    iconColor: Colors.grey,
+                    dense: true,
+                    onTap: () {},
                   ),
-                  trailing: const Icon(Icons.delete),
-                  iconColor: Colors.grey,
-                  dense: true,
-                  onTap: () {},
                 );
               },
               itemCount: transactions.length,
